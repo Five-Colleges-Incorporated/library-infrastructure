@@ -1,0 +1,9 @@
+---
+name: library-infrastructure
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - pre-commit-hooks==6.0.0
+  - precious==0.10.2
+  - opentofu==1.11.6

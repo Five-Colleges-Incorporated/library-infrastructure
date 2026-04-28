@@ -20,3 +20,11 @@ type = "lint"
 include = ["*"]
 cmd = ["check-case-conflict"]
 ok_exit_codes = [0]
+
+[commands."tofu.format"]
+type = "both"
+include = ["*.tofu"]
+exclude = []
+cmd = ["tofu", "fmt"]
+lint_flags=["-check"]
+ok_exit_codes = [0]

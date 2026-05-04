@@ -39,8 +39,29 @@ variable "iteration" {
   description = "The iteration of this bucket. DigitalOcean buckets must be unique and deleting a bucket takes 14 to reclaim an existing name."
 }
 
+variable "name_override" {
+  type        = string
+  description = "Override the generated bucket name (use this for resource imports)."
+  default     = null
+}
 variable "create" {
   type        = bool
   description = "Whether the bucket should be created."
+  default     = true
+}
+
+variable "lifecycle_rules" {
+  type        = list(tuple([string, string, number]))
+  description = "A list of ids, prefixes, and days to set as lifecycle rules."
+  default     = []
+}
+variable "noncurrent_version_expiration" {
+  type        = number
+  description = "Enable bucket versioning and specify the number of days after which an object's non-current versions expire."
+  default     = null
+}
+variable "force_destroy" {
+  type        = bool
+  description = "Unless true, the bucket will only be destroyed if empty (Defaults to true)."
   default     = true
 }

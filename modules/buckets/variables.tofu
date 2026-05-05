@@ -65,3 +65,14 @@ variable "force_destroy" {
   description = "Unless true, the bucket will only be destroyed if empty (Defaults to true)."
   default     = true
 }
+
+variable "logging_bucket_id" {
+  type        = string
+  description = "The id of the bucket to use for access logs. If not provided a bucket will be created unless unlogged_bucket is set."
+  default     = null
+}
+variable "unlogged_bucket" {
+  type        = bool
+  description = "Whether to create an access logs bucket by default if a loggin_bucket_id is not provided."
+  default     = false
+}

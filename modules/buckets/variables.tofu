@@ -3,8 +3,8 @@ variable "environment" {
   description = "Environment for the bucket."
 
   validation {
-    condition     = contains(["sandbox", "production", "sensitive"], var.environment)
-    error_message = "Environment must be one of 'sandbox', 'production', or 'sensitive'."
+    condition     = contains(["sandbox", "production", "administrative"], var.environment)
+    error_message = "Environment must be one of 'sandbox', 'production', or 'administrative'."
   }
 }
 variable "school" {
@@ -30,7 +30,7 @@ variable "purpose" {
   description = "The purpose this bucket serves."
   validation {
     condition     = length(regexall("^[[:alnum:]]+$", var.purpose)) > 0
-    error_message = "Application must be alphanumeric"
+    error_message = "Purpose must be alphanumeric"
   }
 }
 

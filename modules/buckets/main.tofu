@@ -1,14 +1,15 @@
 locals {
-  env              = lookup({ "sandbox" = "sand", "production" = "prod", "sensitive" = "sens" }, var.environment)
-  iter             = format("%02d", var.iteration)
-  bucket_name      = "fclib-${local.env}-${lower(var.application)}-${var.school}-${lower(var.purpose)}-${local.iter}"
+  env         = lookup({ "sandbox" = "test", "production" = "prod", "administrative" = "admn" }, var.environment)
+  iter        = format("%02d", var.iteration)
+  bucket_name = coalesce(var.name_override, "fclib-${local.env}-${lower(var.application)}-${var.school}-${lower(var.purpose)}-${local.iter}")
+
   versioning_rules = var.noncurrent_version_expiration == null ? [] : [true]
 }
 
 resource "digitalocean_spaces_bucket" "created_bucket" {
   count = var.create ? 1 : 0
 
-  name          = coalesce(var.name_override, local.bucket_name)
+  name          = locals.bucket_name
   force_destroy = var.force_destroy
 
   lifecycle_rule {
@@ -58,7 +59,7 @@ resource "digitalocean_spaces_bucket" "created_bucket" {
 data "digitalocean_spaces_bucket" "found_bucket" {
   count = var.create ? 0 : 1
 
-  name   = coalesce(var.name_override, local.bucket_name)
+  name   = local.bucket_name
   region = "nyc3"
 }
 

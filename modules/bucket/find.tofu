@@ -6,5 +6,5 @@ data "digitalocean_spaces_bucket" "found_bucket" {
 }
 
 output "found_bucket" {
-  value = length(digitalocean_spaces_bucket.found_bucket) == 0 ? null : digitalocean_spaces_bucket.found_bucket[0]
+  value = length(data.digitalocean_spaces_bucket.found_bucket) == 0 ? null : data.digitalocean_spaces_bucket.found_bucket[0]
 }

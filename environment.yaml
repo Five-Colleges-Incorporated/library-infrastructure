@@ -7,3 +7,4 @@ dependencies:
   - pre-commit-hooks==6.0.0
   - precious==0.10.2
   - opentofu==1.11.6
+  - awscli>2.0.0

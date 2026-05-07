@@ -12,8 +12,8 @@ variable "school" {
   description = "School this bucket is for."
 
   validation {
-    condition     = contains(["ac", "hc", "mh", "sc", "um", "5c"], var.school)
-    error_message = "Environment must be one of 'ac', 'hc', 'mh', 'sc', 'hc', or '5c'."
+    condition     = contains(["ac", "mh", "sc", "um", "5c"], var.school)
+    error_message = "Environment must be one of 'ac', 'mh', 'sc', 'um', or '5c'."
   }
 }
 variable "project" {

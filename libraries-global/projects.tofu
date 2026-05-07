@@ -7,3 +7,13 @@ module "project_infrastructure" {
 
   name = "infrastructure"
 }
+
+module "project_userload" {
+  source = "./project"
+  providers = {
+    digitalocean.global  = digitalocean
+    digitalocean.sandbox = digitalocean.sandbox
+  }
+
+  name = "userload"
+}

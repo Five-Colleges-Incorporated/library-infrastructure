@@ -16,7 +16,6 @@ variable "school" {
     error_message = "Environment must be one of 'ac', 'hc', 'mh', 'sc', 'hc', or '5c'."
   }
 }
-
 variable "project" {
   type        = string
   description = "Project this bucket is used by."
@@ -33,17 +32,17 @@ variable "purpose" {
     error_message = "Purpose must be alphanumeric"
   }
 }
-
 variable "iteration" {
   type        = number
   description = "The iteration of this bucket. DigitalOcean buckets must be unique and deleting a bucket takes 14 to reclaim an existing name."
+  default     = null
 }
-
 variable "name_override" {
   type        = string
   description = "Override the generated bucket name (use this for resource imports)."
   default     = null
 }
+
 variable "create" {
   type        = bool
   description = "Whether the bucket should be created."

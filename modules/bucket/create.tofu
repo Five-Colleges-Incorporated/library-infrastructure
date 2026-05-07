@@ -52,18 +52,13 @@ resource "digitalocean_spaces_bucket" "logging_bucket" {
   count = var.create && local.create_logging_bucket ? 1 : 0
 
   name          = "${local.bucket_name}-accesslogs"
-  force_destroy = var.force_destroy
-
-  lifecycle_rule {
-    id      = "multipart_upload"
-    enabled = true
-
-    abort_incomplete_multipart_upload_days = 1
-  }
+  force_destroy = true
 
   lifecycle_rule {
     id      = "default"
     enabled = true
+
+    abort_incomplete_multipart_upload_days = 1
 
     expiration {
       days = 365

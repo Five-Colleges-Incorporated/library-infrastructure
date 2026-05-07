@@ -1,4 +1,6 @@
 resource "digitalocean_project" "infrastructure" {
-  name    = "infrastructure"
-  purpose = "Operational / Developer tooling"
+  name = "infrastructure"
+
+  # TODO: maybe encapsulate this because it is noisy
+  environment = "Production"
 }

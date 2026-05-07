@@ -75,24 +75,27 @@ resource "digitalocean_spaces_bucket" "logging_bucket" {
   acl    = "private"
 }
 data "digitalocean_spaces_bucket" "logging_bucket" {
-  count = var.create && !local.create_logging_bucket && var.logging_bucket_id != null ? 1 : 0
+  count = var.create && !local.create_logging_bucket && var.logging_bucket_name != null ? 1 : 0
 
-  name   = var.logging_bucket_id
+  name   = var.logging_bucket_name
   region = "nyc3"
 }
 
+locals {
+  logging_bucket = length(digitalocean_spaces_bucket.logging_bucket) > 0 ? digitalocean_spaces_bucket.logging_bucket : (length(data.digitalocean_spaces_bucket.logging_bucket) > 0 ? data.digitalocean_spaces_bucket.logging_bucket : [])
+}
 resource "digitalocean_spaces_bucket_logging" "access_logs" {
-  count = var.create && !var.unlogged_bucket ? 1 : 0
+  count = length(local.logging_bucket)
 
   region        = "nyc3"
   bucket        = digitalocean_spaces_bucket.created_bucket[0].id
-  target_bucket = local.create_logging_bucket ? digitalocean_spaces_bucket.logging_bucket[0].id : data.digitalocean_spaces_bucket.logging_bucket[0].id
-  target_prefix = local.bucket_name
+  target_bucket = local.logging_bucket[0].id
+  target_prefix = "${local.bucket_name}/"
 }
 
 output "created_bucket" {
   value = length(digitalocean_spaces_bucket.created_bucket) == 0 ? null : digitalocean_spaces_bucket.created_bucket[0]
 }
 output "logging_bucket" {
-  value = length(digitalocean_spaces_bucket.logging_bucket) > 0 ? digitalocean_spaces_bucket.logging_bucket[0] : (length(data.digitalocean_spaces_bucket.logging_bucket) > 0 ? data.digitalocean_spaces_bucket.logging_bucket[0] : null)
+  value = length(local.logging_bucket) == 0 ? null : local.logging_bucket
 }

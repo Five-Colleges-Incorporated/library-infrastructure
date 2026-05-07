@@ -66,9 +66,9 @@ variable "force_destroy" {
   default     = true
 }
 
-variable "logging_bucket_id" {
+variable "logging_bucket_name" {
   type        = string
-  description = "The id of the bucket to use for access logs. If not provided a bucket will be created unless unlogged_bucket is set."
+  description = "The name of the bucket to use for access logs. If not provided a bucket will be created unless unlogged_bucket is set."
   default     = null
 }
 variable "unlogged_bucket" {

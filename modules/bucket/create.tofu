@@ -82,7 +82,7 @@ data "digitalocean_spaces_bucket" "logging_bucket" {
 }
 
 locals {
-  logging_bucket = length(digitalocean_spaces_bucket.logging_bucket) > 0 ? digitalocean_spaces_bucket.logging_bucket : (length(data.digitalocean_spaces_bucket.logging_bucket) > 0 ? data.digitalocean_spaces_bucket.logging_bucket : [])
+  logging_bucket = concat(digitalocean_spaces_bucket.logging_bucket, data.digitalocean_spaces_bucket.logging_bucket)
 }
 resource "digitalocean_spaces_bucket_logging" "access_logs" {
   count = length(local.logging_bucket)
@@ -91,6 +91,18 @@ resource "digitalocean_spaces_bucket_logging" "access_logs" {
   bucket        = digitalocean_spaces_bucket.created_bucket[0].id
   target_bucket = local.logging_bucket[0].id
   target_prefix = "${local.bucket_name}/"
+}
+
+data "digitalocean_project" "project" {
+  count = var.create ? 1 : 0
+
+  name = var.project
+}
+resource "digitalocean_project_resources" "project_spaces" {
+  count = length(data.digitalocean_project.project)
+
+  project   = data.digitalocean_project.project[0].id
+  resources = [for b in concat(digitalocean_spaces_bucket.created_bucket, digitalocean_spaces_bucket.logging_bucket) : b.urn]
 }
 
 output "created_bucket" {

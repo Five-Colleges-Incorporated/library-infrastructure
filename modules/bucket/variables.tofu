@@ -17,12 +17,12 @@ variable "school" {
   }
 }
 
-variable "application" {
+variable "project" {
   type        = string
-  description = "Application this bucket is used by."
+  description = "Project this bucket is used by."
   validation {
-    condition     = length(regexall("^[[:alnum:]]+$", var.application)) > 0
-    error_message = "Application must be alphanumeric"
+    condition     = length(regexall("^[[:alnum:]]+$", var.project)) > 0
+    error_message = "Project must be alphanumeric"
   }
 }
 variable "purpose" {

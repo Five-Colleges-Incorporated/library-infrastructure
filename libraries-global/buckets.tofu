@@ -9,7 +9,7 @@ module "bucket_production_terraform" {
   noncurrent_version_expiration = 365
   force_destroy                 = false
 
-  project = digitalocean_project.infrastructure.name
+  project = module.project_infrastructure.name
 }
 
 module "bucket_sandbox_terraform" {
@@ -22,5 +22,5 @@ module "bucket_sandbox_terraform" {
   noncurrent_version_expiration = 365
   force_destroy                 = false
 
-  project = digitalocean_project.infrastructure.name
+  project = module.project_infrastructure.name
 }

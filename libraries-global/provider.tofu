@@ -18,3 +18,14 @@ terraform {
     }
   }
 }
+
+provider "digitalocean" {
+}
+
+variable "LIBRARIES_SANDBOX_DIGITALOCEAN_ACCESS_TOKEN" {
+  type = string
+}
+provider "digitalocean" {
+  alias = "sandbox"
+  token = var.LIBRARIES_SANDBOX_DIGITALOCEAN_ACCESS_TOKEN
+}

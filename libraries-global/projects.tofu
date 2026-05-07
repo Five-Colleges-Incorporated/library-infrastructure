@@ -1,6 +1,9 @@
-resource "digitalocean_project" "infrastructure" {
-  name = "infrastructure"
+module "project_infrastructure" {
+  source = "./project"
+  providers = {
+    digitalocean.global  = digitalocean
+    digitalocean.sandbox = digitalocean.sandbox
+  }
 
-  # TODO: maybe encapsulate this because it is noisy
-  environment = "Production"
+  name = "infrastructure"
 }

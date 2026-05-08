@@ -1,28 +1,11 @@
-module "bucket_production_terraform" {
-  source = "../modules/bucket"
+module "project_userload" {
+  source = "../modules/project"
+  providers = {
+    digitalocean.global  = digitalocean
+    digitalocean.sandbox = digitalocean.sandbox
+  }
 
-  environment = "production"
-  school      = "5c"
-  purpose     = "state"
-  iteration   = 2
-
-  noncurrent_version_expiration = 365
-  force_destroy                 = false
-
-  project = module.project_infrastructure.name
-}
-
-module "bucket_sandbox_terraform" {
-  source = "../modules/bucket"
-
-  environment = "sandbox"
-  school      = "5c"
-  purpose     = "state"
-
-  noncurrent_version_expiration = 365
-  force_destroy                 = false
-
-  project = module.project_infrastructure.name
+  name = "userload"
 }
 
 module "bucket_userload_access_logs" {

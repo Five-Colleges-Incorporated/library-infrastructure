@@ -1,5 +1,5 @@
 module "project_infrastructure" {
-  source = "./project"
+  source = "../modules/project"
   providers = {
     digitalocean.global  = digitalocean
     digitalocean.sandbox = digitalocean.sandbox
@@ -9,7 +9,7 @@ module "project_infrastructure" {
 }
 
 module "project_userload" {
-  source = "./project"
+  source = "../modules/project"
   providers = {
     digitalocean.global  = digitalocean
     digitalocean.sandbox = digitalocean.sandbox

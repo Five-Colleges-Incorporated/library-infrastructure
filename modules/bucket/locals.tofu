@@ -4,6 +4,5 @@ locals {
   bucket_name = coalesce(var.name_override, "fclib-${local.env}-${lower(var.project)}-${var.school}-${lower(var.purpose)}-${local.iter}")
 
   create_logging_bucket = !var.unlogged_bucket && var.logging_bucket_name == null
-
-  versioning_rules = var.noncurrent_version_expiration == null ? [] : [true]
+  versioning_enabled    = var.noncurrent_version_expiration != null
 }

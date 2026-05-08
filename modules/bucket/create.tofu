@@ -4,41 +4,69 @@ resource "digitalocean_spaces_bucket" "created_bucket" {
   name          = local.bucket_name
   force_destroy = var.force_destroy
 
-  lifecycle_rule {
-    id      = "multipart_upload"
-    enabled = true
-
-    abort_incomplete_multipart_upload_days = 7
-  }
-
+  # DigitalOcean smashes together lifecycle rules by prefix
+  # This results in drift and plan noise
+  # All the dynamics here are to generate a configuration that DO
+  # leaves well enough alone
   dynamic "lifecycle_rule" {
     for_each = var.lifecycle_rules
 
     content {
-      id     = lifecycle_rule.value[0]
-      prefix = lifecycle_rule.value[1]
+      enabled = true
+      id      = lifecycle_rule.value[0]
+      prefix  = lifecycle_rule.value[1]
       expiration {
         days = lifecycle_rule.value[2]
-
-        expired_object_delete_marker = var.noncurrent_version_expiration != null
       }
-      enabled = true
+      abort_incomplete_multipart_upload_days = 7
+
+      dynamic "noncurrent_version_expiration" {
+        for_each = local.versioning_enabled ? [true] : []
+        content {
+          days = var.noncurrent_version_expiration
+        }
+      }
     }
   }
 
   dynamic "lifecycle_rule" {
-    for_each = local.versioning_rules
-    content {
-      id      = "noncurrent_version"
-      enabled = true
+    for_each = local.versioning_enabled && length(var.lifecycle_rules) > 0 ? [true] : []
 
-      noncurrent_version_expiration {
-        days = var.noncurrent_version_expiration
+    content {
+      enabled = true
+      id      = "object_delete_marker"
+      expiration {
+        expired_object_delete_marker = true
       }
     }
   }
+
+  dynamic "lifecycle_rule" {
+    for_each = length(var.lifecycle_rules) == 0 ? [true] : []
+
+    content {
+      enabled = true
+      id      = "default"
+      dynamic "expiration" {
+        for_each = local.versioning_enabled ? [true] : []
+
+        content {
+          expired_object_delete_marker = true
+        }
+      }
+      abort_incomplete_multipart_upload_days = 7
+
+      dynamic "noncurrent_version_expiration" {
+        for_each = local.versioning_enabled ? [true] : []
+        content {
+          days = var.noncurrent_version_expiration
+        }
+      }
+    }
+  }
+
   versioning {
-    enabled = var.noncurrent_version_expiration != null
+    enabled = local.versioning_enabled
   }
 
   # TODO: Figure out if we need multi-region support

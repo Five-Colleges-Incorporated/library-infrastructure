@@ -107,10 +107,14 @@ Set the following environment variables to the `libraries-global` values
 * `SPACES_ACCESS_KEY_ID`
 * `SPACES_SECRET_ACCESS_KEY`
 * `DIGITAL_OCEAN_ACCESS_TOKEN`
+* `SOPS_AGE_KEY`
 
 See the [DigitalOcean Provider](https://search.opentofu.org/provider/opentofu/digitalocean/latest)
 and [S3 backend](https://opentofu.org/docs/language/settings/backends/s3/#credentials-and-shared-configuration)
 documentation for other authentication options.
+
+The state must have been encrypted with your age key as an recipient.
+See [tofu-age-encryption](https://github.com/josh/tofu-age-encryption) for more age configuration options.
 
 Also, set any additional PATs using `TF_VAR_<TEAM>_DIGITAL_OCEAN_ACCESS_TOKEN`.
 This is only required in the `libraries-global` workspace.

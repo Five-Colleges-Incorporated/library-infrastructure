@@ -11,6 +11,21 @@ terraform {
     region                      = "us-east-1"
   }
 
+  encryption {
+    method "external" "age" {
+      # TODO: Switch to using the .sops.yaml file
+      encrypt_command = ["tofu-age-encryption", "--encrypt",
+        "--recipient", "age1hyrn327p0ke8j9jjgf09agma446ah0n3umerftkrasrn5e8qla2qqau9sf",
+        "--recipient", "age1dgtl76dv8nyuvyhkp954fjaqa7ueyrqswdjjl6lp2nt8v46u249sh2w2pu",
+        "--recipient", "age1flzetpexjgxtqrtjerrrqump69x0554zaarr43me7ew7v3x8acgsd998ge",
+      ]
+      decrypt_command = ["tofu-age-encryption", "--decrypt"]
+    }
+    state {
+      method = method.external.age
+    }
+  }
+
   required_providers {
     digitalocean = {
       source  = "digitalocean/digitalocean"

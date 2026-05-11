@@ -1,5 +1,5 @@
 module "project_userload" {
-  source = "../modules/project"
+  source = "../../modules/project"
   providers = {
     digitalocean.global  = digitalocean
     digitalocean.sandbox = digitalocean.sandbox
@@ -9,7 +9,7 @@ module "project_userload" {
 }
 
 module "bucket_userload_access_logs" {
-  source = "../modules/bucket"
+  source = "../../modules/bucket"
 
   environment   = "production"
   school        = "5c"
@@ -29,7 +29,7 @@ module "bucket_userload_source" {
     "sc" = [1, "smith"],
     "um" = [1, "umass"]
   }
-  source = "../modules/bucket"
+  source = "../../modules/bucket"
 
   environment   = "production"
   school        = each.key
@@ -43,7 +43,7 @@ module "bucket_userload_source" {
 }
 
 module "bucket_userload_logs" {
-  source = "../modules/bucket"
+  source = "../../modules/bucket"
 
   environment   = "production"
   school        = "5c"

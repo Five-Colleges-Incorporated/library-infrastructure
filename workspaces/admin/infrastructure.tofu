@@ -1,5 +1,5 @@
 module "project_infrastructure" {
-  source = "../modules/project"
+  source = "../../modules/project"
   providers = {
     digitalocean.global  = digitalocean
     digitalocean.sandbox = digitalocean.sandbox
@@ -9,7 +9,7 @@ module "project_infrastructure" {
 }
 
 module "bucket_production_terraform" {
-  source = "../modules/bucket"
+  source = "../../modules/bucket"
 
   environment = "production"
   school      = "5c"
@@ -23,7 +23,7 @@ module "bucket_production_terraform" {
 }
 
 module "bucket_sandbox_terraform" {
-  source = "../modules/bucket"
+  source = "../../modules/bucket"
 
   environment = "sandbox"
   school      = "5c"

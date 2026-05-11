@@ -2,14 +2,9 @@
 
 ## Setup
 
-The `libraries-global` is a hybrid workspace which touches all DigitalOcean teams.
+This is a hybrid workspace which touches all DigitalOcean teams.
 It manages buckets, access keys, domains, and projects across all teams.
 DigitalOcean doesn't actually allow programatically managing users/roles but that management would go here.
-
-Only the 5C "owners" have access to the `libraries-global` team.
-Buckets and access keys are only managed in the `libraries-global` team because:
-* $5/month spaces subscriptions are per team
-* Access Keys are per team
 
 ### Infrastructure Setup
 
@@ -95,7 +90,7 @@ aws s3api put-bucket-lifecycle-configuration \
   }'
 ```
 
-For each other `libraries-xyz` team manually create a PAT with the following scopes:
+For the `libraries-production` and `libraries-development` teams manually create a PAT with the following scopes:
 1. domain:all
 1. project:all
 
@@ -117,4 +112,3 @@ The state must have been encrypted with your age key as an recipient.
 See [tofu-age-encryption](https://github.com/josh/tofu-age-encryption) for more age configuration options.
 
 Also, set any additional PATs using `TF_VAR_<TEAM>_DIGITAL_OCEAN_ACCESS_TOKEN`.
-This is only required in the `libraries-global` workspace.

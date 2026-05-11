@@ -23,6 +23,19 @@ module "bucket_userload_access_logs" {
   project = module.project_userload.name
 }
 
+module "bucket_sandbox_userload_access_logs" {
+  source = "../../modules/bucket"
+
+  environment = "sandbox"
+  school      = "5c"
+  purpose     = "accesslogs"
+
+  lifecycle_rules = [["default", null, "365"]]
+  unlogged_bucket = true
+
+  project = module.project_userload.name
+}
+
 module "bucket_userload_source" {
   for_each = {
     "ac" = [7, "amherst"],
@@ -43,6 +56,26 @@ module "bucket_userload_source" {
   project = module.project_userload.name
 }
 
+module "bucket_sandbox_userload_source" {
+  for_each = {
+    "ac" = 1,
+    "mh" = 1,
+    "sc" = 1,
+    "um" = 1,
+  }
+  source = "../../modules/bucket"
+
+  environment = "sandbox"
+  school      = each.key
+  purpose     = "source"
+  iteration   = each.value
+
+  lifecycle_rules     = [["default", null, "7"]]
+  logging_bucket_name = module.bucket_sandbox_userload_access_logs.created_bucket.name
+
+  project = module.project_userload.name
+}
+
 module "bucket_userload_logs" {
   source = "../../modules/bucket"
 
@@ -53,6 +86,19 @@ module "bucket_userload_logs" {
 
   lifecycle_rules     = [["default", null, "30"]]
   logging_bucket_name = module.bucket_userload_access_logs.created_bucket.name
+
+  project = module.project_userload.name
+}
+
+module "bucket_sandbox_userload_logs" {
+  source = "../../modules/bucket"
+
+  environment = "sandbox"
+  school      = "5c"
+  purpose     = "runtimelogs"
+
+  lifecycle_rules     = [["default", null, "7"]]
+  logging_bucket_name = module.bucket_sandbox_userload_access_logs.created_bucket.name
 
   project = module.project_userload.name
 }

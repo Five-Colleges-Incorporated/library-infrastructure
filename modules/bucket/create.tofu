@@ -119,7 +119,7 @@ resource "digitalocean_spaces_bucket_logging" "access_logs" {
 data "digitalocean_project" "project" {
   count = var.create ? 1 : 0
 
-  name = var.project
+  name = local.do_project
 }
 resource "digitalocean_project_resources" "project_spaces" {
   count = length(data.digitalocean_project.project)

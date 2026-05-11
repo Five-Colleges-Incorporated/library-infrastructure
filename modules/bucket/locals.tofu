@@ -10,4 +10,6 @@ locals {
 
   create_logging_bucket = !var.unlogged_bucket && var.logging_bucket_name == null
   versioning_enabled    = var.noncurrent_version_expiration != null
+
+  do_project = var.environment == "sandbox" ? "${var.project}-sandbox" : var.project
 }

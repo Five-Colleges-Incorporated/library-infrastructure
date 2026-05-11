@@ -10,6 +10,12 @@ resource "digitalocean_project" "production" {
 
   environment = "Production"
 }
+resource "digitalocean_project" "sandbox" {
+  provider = digitalocean.production
+  name     = "${var.name}-sandbox"
+
+  environment = "Staging"
+}
 resource "digitalocean_project" "development" {
   provider = digitalocean.development
   name     = var.name

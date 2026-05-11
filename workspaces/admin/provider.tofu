@@ -37,10 +37,18 @@ terraform {
 provider "digitalocean" {
 }
 
-variable "LIBRARIES_SANDBOX_DIGITALOCEAN_ACCESS_TOKEN" {
+variable "LIBRARIES_PRODUCTION_DIGITALOCEAN_ACCESS_TOKEN" {
   type = string
 }
 provider "digitalocean" {
-  alias = "sandbox"
-  token = var.LIBRARIES_SANDBOX_DIGITALOCEAN_ACCESS_TOKEN
+  alias = "production"
+  token = var.LIBRARIES_PRODUCTION_DIGITALOCEAN_ACCESS_TOKEN
+}
+
+variable "LIBRARIES_DEVELOPMENT_DIGITALOCEAN_ACCESS_TOKEN" {
+  type = string
+}
+provider "digitalocean" {
+  alias = "development"
+  token = var.LIBRARIES_DEVELOPMENT_DIGITALOCEAN_ACCESS_TOKEN
 }

@@ -1,8 +1,9 @@
 module "project_infrastructure" {
   source = "../../modules/project"
   providers = {
-    digitalocean.global  = digitalocean
-    digitalocean.sandbox = digitalocean.sandbox
+    digitalocean.global      = digitalocean
+    digitalocean.production  = digitalocean.production
+    digitalocean.development = digitalocean.development
   }
 
   name = "infrastructure"

@@ -3,8 +3,8 @@ variable "environment" {
   description = "Environment for the bucket."
 
   validation {
-    condition     = contains(["sandbox", "production", "administrative"], var.environment)
-    error_message = "Environment must be one of 'sandbox', 'production', or 'administrative'."
+    condition     = contains(["sandbox", "production", "development", "administrative"], var.environment)
+    error_message = "Environment must be one of 'sandbox', 'production', 'development', or 'administrative'."
   }
 }
 variable "school" {

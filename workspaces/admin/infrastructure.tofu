@@ -22,15 +22,14 @@ module "bucket_production_terraform" {
   project = module.project_infrastructure.name
 }
 
-module "bucket_sandbox_terraform" {
+module "bucket_development_terraform" {
   source = "../../modules/bucket"
 
-  environment = "sandbox"
+  environment = "development"
   school      = "5c"
   purpose     = "state"
 
-  noncurrent_version_expiration = 365
-  force_destroy                 = false
+  noncurrent_version_expiration = 30
 
   project = module.project_infrastructure.name
 }

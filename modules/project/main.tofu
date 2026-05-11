@@ -5,6 +5,8 @@ resource "digitalocean_project" "global" {
   environment = "Production"
 }
 resource "digitalocean_project" "global_sandbox" {
+  count = var.name != "infrastructure" ? 1 : 0
+
   provider = digitalocean.global
   name     = "${var.name}-sandbox"
 

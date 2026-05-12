@@ -1,3 +1,3 @@
 locals {
-  name = "${actor}-${semester}.${year}"
+  name = "${var.actor}-${var.semester}.${var.year}"
 }

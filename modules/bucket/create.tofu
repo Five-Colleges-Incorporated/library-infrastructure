@@ -132,5 +132,5 @@ output "created_bucket" {
   value = length(digitalocean_spaces_bucket.created_bucket) == 0 ? null : digitalocean_spaces_bucket.created_bucket[0]
 }
 output "logging_bucket" {
-  value = length(local.logging_bucket) == 0 ? null : local.logging_bucket
+  value = length(local.logging_bucket) == 0 ? null : local.logging_bucket[0]
 }

@@ -24,14 +24,19 @@ variable "year" {
   }
 }
 
-variable "buckets" {
-  type = object({
-    bucket   = string
-    readonly = optional(bool, true)
-  })
-  description = "Buckets for the key to have access to and (optionally) whether those buckets are readonly."
-  validation {
-    condition     = length(var.buckets) > 0
-    error_message = "At least one bucket is required."
-  }
+variable "writeable_buckets" {
+  type        = list(string)
+  description = "Buckets for the key to have read/write access."
+  default     = []
+}
+
+variable "readonly_buckets" {
+  type        = list(string)
+  description = "Buckets for the key to have readonly access."
+  default     = []
+}
+
+variable "secret_store" {
+  type        = string
+  description = "The bucket name where the secret will be uploaded"
 }

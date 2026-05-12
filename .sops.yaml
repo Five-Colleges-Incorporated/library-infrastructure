@@ -1,12 +1,14 @@
-# ciadmin-spring.2026 age1hyrn327p0ke8j9jjgf09agma446ah0n3umerftkrasrn5e8qla2qqau9sf
-# kbargar-spring.2026 age1dgtl76dv8nyuvyhkp954fjaqa7ueyrqswdjjl6lp2nt8v46u249sh2w2pu
-# aneslin-spring.2026 age1flzetpexjgxtqrtjerrrqump69x0554zaarr43me7ew7v3x8acgsd998ge
 creation_rules:
-  - path_regex: libraries-global/*
-    age: >-
-      age1hyrn327p0ke8j9jjgf09agma446ah0n3umerftkrasrn5e8qla2qqau9sf
-      age1dgtl76dv8nyuvyhkp954fjaqa7ueyrqswdjjl6lp2nt8v46u249sh2w2pu
-      age1flzetpexjgxtqrtjerrrqump69x0554zaarr43me7ew7v3x8acgsd998ge
+  - path_regex: libraries-admin/*
+    age:
+      - age1hyrn327p0ke8j9jjgf09agma446ah0n3umerftkrasrn5e8qla2qqau9sf # ciadmin-spring.2026
+      - age1dgtl76dv8nyuvyhkp954fjaqa7ueyrqswdjjl6lp2nt8v46u249sh2w2pu # kbargar-spring.2026
+      - age1flzetpexjgxtqrtjerrrqump69x0554zaarr43me7ew7v3x8acgsd998ge # aneslin-spring.2026
+  - path_regex: access_key.json
+    encrypted_regex: '^secret_key$'
+    age:
+      - age1dgtl76dv8nyuvyhkp954fjaqa7ueyrqswdjjl6lp2nt8v46u249sh2w2pu # kbargar-spring.2026
+      - age1flzetpexjgxtqrtjerrrqump69x0554zaarr43me7ew7v3x8acgsd998ge # aneslin-spring.2026
   - age:
-      age1dgtl76dv8nyuvyhkp954fjaqa7ueyrqswdjjl6lp2nt8v46u249sh2w2pu
-      age1flzetpexjgxtqrtjerrrqump69x0554zaarr43me7ew7v3x8acgsd998ge
+      - age1dgtl76dv8nyuvyhkp954fjaqa7ueyrqswdjjl6lp2nt8v46u249sh2w2pu # kbargar-spring.2026
+      - age1flzetpexjgxtqrtjerrrqump69x0554zaarr43me7ew7v3x8acgsd998ge # aneslin-spring.2026

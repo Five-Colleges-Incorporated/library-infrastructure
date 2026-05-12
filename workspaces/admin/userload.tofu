@@ -102,3 +102,14 @@ module "bucket_sandbox_userload_logs" {
 
   project = module.project_userload.name
 }
+
+locals {
+  userload_access_logs_r = [
+    module.bucket_userload_access_logs.created_bucket.name,
+    module.bucket_sandbox_userload_access_logs.created_bucket.name,
+  ]
+  useradmin_r = concat(local.userload_access_logs_r, [
+    module.bucket_userload_logs.created_bucket.name,
+    module.bucket_sandbox_userload_logs.created_bucket.name,
+  ])
+}

@@ -38,5 +38,5 @@ variable "readonly_buckets" {
 
 variable "secret_store" {
   type        = string
-  description = "The bucket name where the secret will be uploaded"
+  description = "The bucket name where the secret will be uploaded."
 }

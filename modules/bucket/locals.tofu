@@ -11,5 +11,16 @@ locals {
   create_logging_bucket = !var.unlogged_bucket && var.logging_bucket_name == null
   versioning_enabled    = var.noncurrent_version_expiration != null
 
-  do_project = var.environment == "sandbox" && var.project != "infrastructure" ? "${var.project}-sandbox" : var.project
+  # TODO: How to make sure this stays in sync with project naming?
+  do_project = (
+    var.project == "infrastructure"
+    ? var.project
+    : (
+      var.environment == "sandbox"
+      ? "${var.project}-test"
+      : (
+        var.environment == "development"
+        ? "${var.project}-dev"
+        : var.project
+  )))
 }

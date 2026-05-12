@@ -8,10 +8,19 @@ resource "digitalocean_project" "global_sandbox" {
   count = var.name != "infrastructure" ? 1 : 0
 
   provider = digitalocean.global
-  name     = "${var.name}-sandbox"
+  name     = "${var.name}-test"
 
   environment = "Staging"
 }
+resource "digitalocean_project" "global_development" {
+  count = var.name != "infrastructure" ? 1 : 0
+
+  provider = digitalocean.global
+  name     = "${var.name}-dev"
+
+  environment = "Development"
+}
+
 resource "digitalocean_project" "production" {
   provider = digitalocean.production
   name     = var.name
@@ -24,6 +33,7 @@ resource "digitalocean_project" "production_sandbox" {
 
   environment = "Staging"
 }
+
 resource "digitalocean_project" "development" {
   provider = digitalocean.development
   name     = var.name
